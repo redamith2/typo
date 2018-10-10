@@ -7,7 +7,7 @@ Feature: Create and Save Categories
     Given the blog is set up
     And I am logged into the admin panel
 
-  Scenario: Successfully create and edit categories
+  Scenario: Successfully create categories
     Given I am on the new categories page
         When I fill in "category_name" with "Movies"
         And I fill in "category_keywords" with "Action"
@@ -18,7 +18,7 @@ Feature: Create and Save Categories
         Then I should see "Action"
         Then I should see "movies_link"
         Then I should see "Action Movies description"
-        #editing categories
+    
         Then I follow "Movies"
         And I fill in "category_name" with "Transport"
         And I fill in "category_keywords" with "Cars,Trucks"
@@ -29,3 +29,4 @@ Feature: Create and Save Categories
         Then I should see "Cars,Trucks"
         Then I should see "nothing"
         Then I should see "Vechicle description"
+        
