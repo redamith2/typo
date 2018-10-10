@@ -1,4 +1,4 @@
-Feature: Create categories
+Feature: Create and Save Categories
   As an blog administrator
   In order to share my thoughts to the world
   I want to be able to add categories to my blog
