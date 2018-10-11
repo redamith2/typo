@@ -1,0 +1,107 @@
+Using the default profile...
+Feature: Create Blog
+  As an author
+  In order to gift my thoughts to the world
+  I want to create a blog
+
+  Scenario: Create blog page shown      # features/create_blog.feature:6
+    Given I am on the home page         # features/step_definitions/web_steps.rb:68
+    Then I should see "Welcome"         # features/step_definitions/web_steps.rb:129
+    And I should see "My Shiny Weblog!" # features/step_definitions/web_steps.rb:129
+
+  Scenario: Create blog page not shown when blog created # features/create_blog.feature:11
+    Given the blog is set up                             # features/step_definitions/web_steps.rb:34
+    When I am on the home page                           # features/step_definitions/web_steps.rb:68
+    Then I should not see "My Shiny Weblog!"             # features/step_definitions/web_steps.rb:147
+    And I should see "Teh Blag"                          # features/step_definitions/web_steps.rb:129
+
+Feature: Create and Save Categories
+  As an blog administrator
+  In order to share my thoughts to the world
+  I want to be able to add categories to my blog
+
+  Background:                            # features/create_save_categories.feature:6
+    Given the blog is set up             # features/step_definitions/web_steps.rb:34
+    And I am logged into the admin panel # features/step_definitions/web_steps.rb:46
+
+  Scenario: Successfully create categories                                # features/create_save_categories.feature:10
+    Given I am on the new categories page                                 # features/step_definitions/web_steps.rb:68
+    When I fill in "category_name" with "Movies"                          # features/step_definitions/web_steps.rb:84
+    And I fill in "category_keywords" with "Action"                       # features/step_definitions/web_steps.rb:84
+    And I fill in "category_permalink" with "movies_link"                 # features/step_definitions/web_steps.rb:84
+    And I fill in "category_description" with "Action Movies description" # features/step_definitions/web_steps.rb:84
+    And I press "Save"                                                    # features/step_definitions/web_steps.rb:76
+    Then I should see "Movies"                                            # features/step_definitions/web_steps.rb:129
+    Then I should see "Action"                                            # features/step_definitions/web_steps.rb:129
+    Then I should see "movies_link"                                       # features/step_definitions/web_steps.rb:129
+    Then I should see "Action Movies description"                         # features/step_definitions/web_steps.rb:129
+    Then I follow "Movies"                                                # features/step_definitions/web_steps.rb:80
+    And I fill in "category_name" with "Transport"                        # features/step_definitions/web_steps.rb:84
+    And I fill in "category_keywords" with "Cars,Trucks"                  # features/step_definitions/web_steps.rb:84
+    And I fill in "category_permalink" with "nothing"                     # features/step_definitions/web_steps.rb:84
+    And I fill in "category_description" with "Vechicle description"      # features/step_definitions/web_steps.rb:84
+    And I press "Save"                                                    # features/step_definitions/web_steps.rb:76
+    Then I should see "Transport"                                         # features/step_definitions/web_steps.rb:129
+    Then I should see "Cars,Trucks"                                       # features/step_definitions/web_steps.rb:129
+    Then I should see "nothing"                                           # features/step_definitions/web_steps.rb:129
+    Then I should see "Vechicle description"                              # features/step_definitions/web_steps.rb:129
+
+Feature: Write Articles
+  As a blog administrator
+  In order to share my thoughts with the world
+  I want to be able to add articles to my blog
+
+  Background:                            # features/write_article.feature:6
+    Given the blog is set up             # features/step_definitions/web_steps.rb:34
+    And I am logged into the admin panel # features/step_definitions/web_steps.rb:46
+
+  Scenario: Successfully write articles                                  # features/write_article.feature:10
+    Given I am on the new article page                                   # features/step_definitions/web_steps.rb:68
+    When I fill in "article_title" with "Foobar"                         # features/step_definitions/web_steps.rb:84
+    And I fill in "article__body_and_extended_editor" with "Lorem Ipsum" # features/step_definitions/web_steps.rb:84
+    And I press "Publish"                                                # features/step_definitions/web_steps.rb:76
+    Then I should be on the admin content page                           # features/step_definitions/web_steps.rb:254
+    When I go to the home page                                           # features/step_definitions/web_steps.rb:72
+    Then I should see "Foobar"                                           # features/step_definitions/web_steps.rb:129
+    When I follow "Foobar"                                               # features/step_definitions/web_steps.rb:80
+    Then I should see "Lorem Ipsum"                                      # features/step_definitions/web_steps.rb:129
+
+4 scenarios (4 passed)
+40 steps (40 passed)
+0m6.230s
+
+################  RSPEC test cases ##############################
+.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................*..............................*....................................................................................................................*.*.*................................................................................................................................*..............................................................................................................................................................................................*................................................*..*..........................................................................................
+
+Pending:
+  Article test_triggers_are_dependent
+    # Needs a fix for Rails ticket #5105: has_many: Dependent deleting does not work with STI
+    # ./spec/models/article_spec.rb:286
+  Article with tags lets the tag collection survive a load-save cycle
+    # Not yet implemented
+    # ./spec/models/article_spec.rb:241
+  CategoriesController /index if :index template exists should render :index
+    # Stubbing #template_exists is not enough to fool Rails
+    # ./spec/controllers/categories_controller_spec.rb:30
+  CategoriesController#show should render :show by default
+    # Stubbing #template_exists is not enough to fool Rails
+    # ./spec/controllers/categories_controller_spec.rb:62
+  CategoriesController#show should render personal when template exists
+    # Stubbing #template_exists is not enough to fool Rails
+    # ./spec/controllers/categories_controller_spec.rb:77
+  ThemeController disabled_test_javascript
+    # Not yet implemented
+    # ./spec/controllers/theme_controller_spec.rb:35
+  Admin::PagesController should create a page published in the future without a redirect
+    # :published_at parameter is currently ignored
+    # ./spec/controllers/admin/pages_controller_spec.rb:120
+  TagsController /index if :index template exists should render :index
+    # Stubbing #template_exists is not enough to fool Rails
+    # ./spec/controllers/tags_controller_spec.rb:23
+  TagsController showing a single tag with some articles should render :show by default
+    # Stubbing #template_exists is not enough to fool Rails
+    # ./spec/controllers/tags_controller_spec.rb:60
+
+Finished in 1 minute 16.43 seconds
+1230 examples, 0 failures, 9 pending
+Coverage report generated for RSpec to /home/ec2-user/environment/typo/coverage. 13414 / 15013 LOC (89.35%) covered.
