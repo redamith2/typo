@@ -20,7 +20,6 @@ dbfile = File.expand_path("../config/database.yml", __FILE__)
 #end
 
 gem 'pg'
-gem 'sqlite3'
 source 'https://rubygems.org'
 ruby "1.9.3"
 
