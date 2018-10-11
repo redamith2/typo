@@ -1,10 +1,10 @@
 development:
-  adapter: sqlite3
+  adapter: postgresql
   database: db/db_development
   timeout: 5000
 
 test: &test
-  adapter: sqlite3
+  adapter: postgresql
   database: db/db_test
   timeout: 5000
 
